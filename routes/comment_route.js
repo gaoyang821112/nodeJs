@@ -19,7 +19,7 @@ app.get('/:articleId', function (req, res, next) {
     //     //     res.send("reerere=" + replies);
     //     // });
     // });
-    comment_service.findCommentByAticleId(req.params.articleId, req, res);
+    comment_service.findCommentByArticleId(req.params.articleId, req, res);
 });
 
 /**

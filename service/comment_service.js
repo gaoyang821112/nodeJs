@@ -8,7 +8,7 @@ var comment_collection = db.collection(Constants.comment_collection);
 var redis = require('redis');
 var logger = require('../model/logger');
 
-exports.findCommentByAticleId = function (articleId, req, res) {
+exports.findCommentByArticleId = function (articleId, req, res) {
     comment_collection.find({articleId: articleId}, function (err, docs) {
         res.send("docs=" + docs);
         // var client = redis.createClient(Constants.redis_connection_port, Constants.redis_connection_ip, {password : Constants.redis_connection_pwd});
