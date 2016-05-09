@@ -8,6 +8,8 @@ var comment_collection = db.collection(Constants.comment_collection);
 var redis = require('redis');
 var logger = require('../model/logger');
 
+var Comment = require('../model/comment');
+
 exports.findCommentByArticleId = function (articleId, req, res) {
     comment_collection.find({articleId: articleId}, function (err, docs) {
         res.send("docs=" + docs);
@@ -19,9 +21,14 @@ exports.findCommentByArticleId = function (articleId, req, res) {
         // client.quit();
         logger.info('查询 articleId 为' + articleId + ' 成功 结果为 ' + docs);
     });
-}
+};
 
-exports.saveComment = function (comment, req, res) {
+exports.saveComment = function (req, res) {
+    var articleId = req.body.articleId;
+    var userId = req.body.userId;
+    var content = req.body.content;
+    var comment = new Comment(articleId, userId, content, '1');
     comment_collection.save(comment);
+    logger.info('save comment 为' + comment.articleId + ' 成功');
     res.send('ok');
-}
+};
