@@ -1,8 +1,11 @@
 /**
  * Created by ZMoffice on 2016/4/21.
  */
-// var mongojs = require('mongojs');
-// var db = mongojs('mongodb://42.62.119.14:27017/zsyh');
+var Constants = require('../model/constants');
+var mongojs = require('mongojs');
+var db = mongojs(Constants.db_connection)
+var comment_collection = db.collection(Constants.comment_collection);
+var redis = require('redis');
 
 function Comment(articleId, userId, content, status) {
     this.article_id = articleId;
@@ -32,15 +35,4 @@ Date.prototype.Format = function (fmt) {
     return fmt;
 }
 
-
-// Comment.findAll = function (articleId) {
-//     console.log('articleId = ' + articleId);
-//     // var comment_collection = db.coll('article_comment');
-//     var comment_collection = db.collection('product1');
-//     comment_collection.find({productNo: '2016040632459'},function (err, docs) {
-//         console.log(docs);
-//     });
-// }
-
-// exports.hello = hello;
 module.exports = Comment;
