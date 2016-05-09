@@ -5,6 +5,9 @@ var comment_service = require('../service/comment_service.js');
 // var router = express.Router();
 var app = express();
 
+/**
+ * 按照文章id获取评论列表
+ */
 app.get('/:articleId', function (req, res, next) {
     // comment_collection.find({articleId: req.params.articleId}, function (err, docs) {
     //     console.log(docs);
@@ -19,20 +22,15 @@ app.get('/:articleId', function (req, res, next) {
     comment_service.findCommentByAticleId(req.params.articleId, req, res);
 });
 
-
+/**
+ * 添加评论
+ */
 app.post('/save', function (req, res) {
-    console.log(req.body.articleId);
     var articleId = req.body.articleId;
     var userId = req.body.userId;
     var content = req.body.content;
     var comment = new Comment(articleId, userId, content, '1');
-    comment_collection.save(comment);
-    res.send('ok');
+    comment_service.saveComment(comment, req, res);
 });
-
-// app.all('/:username', function(req, res, next) {
-//   console.log('app.all');
-//   res.send('users2 = ' + req.params.username);
-// });
 
 module.exports = app;

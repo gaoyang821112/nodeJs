@@ -1,20 +1,12 @@
 /**
  * Created by ZMoffice on 2016/4/21.
  */
-var Constants = require('../model/constants');
-var mongojs = require('mongojs');
-var db = mongojs(Constants.db_connection)
-var comment_collection = db.collection(Constants.comment_collection);
-var redis = require('redis');
-
 function Comment(articleId, userId, content, status) {
     this.article_id = articleId;
     this.uid_comment = userId;
     this.content = content;
     this.reply_comment_id = '0';
-
-    var time = new Date().Format("yyyy-MM-dd hh:mm:ss");
-    this.create_time = time;
+    this.create_time = new Date().Format("yyyy-MM-dd hh:mm:ss");
     this.status = status;
 
 }
