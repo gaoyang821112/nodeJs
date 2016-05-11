@@ -7,7 +7,7 @@ var mongodb = require('../util/mongodb');
 
 var util = require('util');
 var Comment = require('../model/comment');
-var CommentVo = require('../model/CommentVo');
+var CommentVo = require('../model/commentVo');
 
 exports.findCommentByArticleId = function (articleId, req, res) {
     mongodb.comment_collection.find({article_id: articleId}, function (err, docs) {
