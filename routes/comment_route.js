@@ -7,8 +7,9 @@ var app = express();
 /**
  * 按照文章id获取评论列表
  */
-app.get('/:articleId', function (req, res, next) {
-    comment_service.findCommentByArticleId(req.params.articleId, req, res);
+app.get('/:articleId/:pageNum/:pageSize', function (req, res, next) {
+
+    comment_service.findCommentByArticleIdPages(req, res);
 });
 
 /**
