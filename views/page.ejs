@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="renderer" content="webkit" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link href="http://image.ssports.com/images/resources/web/comment/css/common.css" type="text/css" rel="stylesheet" />
+<link href="http://image.ssports.com/images/resources/web/comment/css/comment.css" type="text/css" rel="stylesheet" />
+<script src="http://image.ssports.com/images/resources/web/comment/js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://image.ssports.com/images/resources/web/comment/js/comment.js" type="text/javascript" charset="utf-8"></script>
+<title>评论部分</title>
+</head>
+<script>
+$(document).ready(function(){
+	var pageIndex=<%=comment.page%>;
+});
+
+</script>
+<body>
+	<!--页面评论部分-->
+<div class="comment">
+	<div class="title">
+		<h1>评论</h1>
+		<p>共<span><%=comment.total%></span>条评论</p>
+		<div class="clear">&nbsp;</div>
+	</div>
+	<form id="commentsave" action="">
+		<textarea name="" id="text_val" onkeypress="return(this.value.length<10)" >我来说两句......</textarea>
+		<a href="###" class="btn" id="submit">发表评论</a>
+		<p id="ban_info" style="display:none;">您已被禁言，详情可咨询客服</p>
+		<div class="clear">&nbsp;</div>
+		<div class="text-num">还可以输入<span>140</span>字</div>
+	</form>
+	<div class="comment-list">
+		<ul>
+		    <% for(var i=0; i<comment.comments.length; i++) { %>
+                <li class="commemt-list-box">
+                    <div class="user"><%=comment.comments[i].uid_comment%></div>
+                    <div class="time"><%=comment.comments[i].create_time%></div>
+                    <div class="clear">&nbsp;</div>
+                    <div class="text"><%=comment.comments[i].content%></div>
+                </li>
+            <% } %>
+		</ul>
+	</div>
+	<div class="pagecode">
+		<a class="btn" name="#text_val" href="#text_val">发表评论</a>
+		<div class="tcdPageCode">
+			<a href="###" class="prevPage"><上一页</a>
+			<ul>
+				<li><a href="###">1</a></li>
+				<li><a href="###">2</a></li>
+				<li><a href="###">3</a></li>
+				<li><a href="###">4</a></li>
+				<li><a href="###" class="on">5</a></li>
+				<li ><a href="###">6</a></li>
+				<li><a href="###">...</a></li>
+				<li><a href="###">15</a></li>
+			</ul>
+			<a href="###" class="nextPage disabled">下一页></a>
+		</div>
+		<div class="clear">&nbsp;</div>
+	</div>
+</div>
+</body>
+</html>
