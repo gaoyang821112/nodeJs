@@ -36,15 +36,20 @@ $(function(){
 				data: reqData ,
 				dataType: 'json',
 				success: function(data){
-					//楼层数；
-					var floor_num = parseInt($(".comment-list ul li").first().find(".floor span").html())+1;
-					var html = '<li class="commemt-list-box">';
-						html += '<div class="user">用户名</div>';
-						html += '<div class="time">1小时前</div>';
+					if(data && data.code==200){
+						//楼层数；
+						var floor_num = parseInt($(".comment-list ul li").first().find(".floor span").html())+1;
+						var html = '<li class="commemt-list-box">';
+						html += '<div class="user">data.uid_comment</div>';
+						html += '<div class="time">data.create_time</div>';
 						html += '<div class="clear">&nbsp;</div>';
-						html += '<div class="text">'+new_text+'</div>';
+						html += '<div class="text">'+data.content+'</div>';
 						html += '</li>';
-					$(".comment-list ul").prepend(html);
+						$(".comment-list ul").prepend(html);
+					}else{
+						$("#ban_info").display();
+					}
+
 				},
 				error:function(a){
 

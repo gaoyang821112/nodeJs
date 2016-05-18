@@ -1,12 +1,13 @@
 /**
  * Created by ZMoffice on 2016/4/21.
  */
-function Comment(articleId, userId, content, status) {
+function Comment(articleId, userId, content,rawContent, status) {
     this.article_id = articleId;
     this.uid_comment = userId;
     this.content = content;
+    this.rawContent=rawContent;
     this.reply_comment_id = '0';
-    this.create_time = new Date().Format("yyyy-MM-dd hh:mm:ss");
+    this.create_time = new Date().Format("yyyy-MM-dd hh:mm:ss.S");
     this.status = status;
 
 }

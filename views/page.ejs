@@ -13,7 +13,7 @@
 </head>
 <script>
 $(document).ready(function(){
-	var pageIndex=<%=comment.page%>;
+	var pageIndex=<%=data.page%>;
 });
 
 </script>
@@ -22,11 +22,11 @@ $(document).ready(function(){
 <div class="comment">
 	<div class="title">
 		<h1>评论</h1>
-		<p>共<span><%=comment.total%></span>条评论</p>
+		<p>共<span><%=data.total%></span>条评论</p>
 		<div class="clear">&nbsp;</div>
 	</div>
 	<form id="commentsave" action="">
-		<textarea name="" id="text_val" onkeypress="return(this.value.length<10)" >我来说两句......</textarea>
+		<textarea name="" id="text_val" onkeypress="return(this.value.length<140)" >我来说两句......</textarea>
 		<a href="###" class="btn" id="submit">发表评论</a>
 		<p id="ban_info" style="display:none;">您已被禁言，详情可咨询客服</p>
 		<div class="clear">&nbsp;</div>
@@ -34,12 +34,12 @@ $(document).ready(function(){
 	</form>
 	<div class="comment-list">
 		<ul>
-		    <% for(var i=0; i<comment.comments.length; i++) { %>
+		    <% for(var i=0; i<data.comments.length; i++) { %>
                 <li class="commemt-list-box">
-                    <div class="user"><%=comment.comments[i].uid_comment%></div>
-                    <div class="time"><%=comment.comments[i].create_time%></div>
+                    <div class="user"><%=data.comments[i].uid_comment%></div>
+                    <div class="time"><%=data.comments[i].create_time%></div>
                     <div class="clear">&nbsp;</div>
-                    <div class="text"><%=comment.comments[i].content%></div>
+                    <div class="text"><%=data.comments[i].content%></div>
                 </li>
             <% } %>
 		</ul>

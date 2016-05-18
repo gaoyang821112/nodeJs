@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-
 var comment_service = require('../service/comment_service.js');
 
 /* GET home page. */
