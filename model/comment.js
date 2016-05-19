@@ -7,7 +7,7 @@ function Comment(articleId, userId, content,rawContent, status) {
     this.content = content;
     this.rawContent=rawContent;
     this.reply_comment_id = '0';
-    this.create_time = new Date().Format("yyyy-MM-dd hh:mm:ss.S");
+    this.create_time = new Date().getTime();
     this.status = status;
 
 }
