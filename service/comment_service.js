@@ -212,7 +212,22 @@ exports.saveComment = function (req, res) {
                 redis_util.getClient.expire(userFrequent,constants.commentfrequent_expire);
                 logger.info('save comment 为' + comment.articleId + ' 成功');
                 comment.rawContent = '';
-                res.send(new ResponseVo(200, comment));
+
+                client.hget("MemberBaseInfo:1", 'nickname',function (err, rep) {
+                    if (rep) {
+                        if (telReg.test(rep)) {
+                            var nn = rep.substr(0, 3) + "****" + rep.substr(7, 4);
+                            comment.nick = nn;
+                        } else {
+                            comment.nick = rep;
+                        }
+                    } else {
+                        comment.nick = "游客";
+                    }
+                    comment.uid_comment = '';
+                    res.send(new ResponseVo(200, comment));
+                });
+
             });
         });
     } else {
