@@ -213,7 +213,7 @@ exports.saveComment = function (req, res) {
                 logger.info('save comment 为' + comment.articleId + ' 成功');
                 comment.rawContent = '';
 
-                client.hget("MemberBaseInfo:1", 'nickname',function (err, rep) {
+                redis_util.getClient.hget("MemberBaseInfo:"+userId, 'nickname',function (err, rep) {
                     if (rep) {
                         if (telReg.test(rep)) {
                             var nn = rep.substr(0, 3) + "****" + rep.substr(7, 4);

@@ -1,32 +1,33 @@
 $(function () {
 
     var defaultAreaValue = "我来说两句......";
-
+    var max_len = 140;
     //输入框；
     $("textarea").focus(function () {
         if ($(this).val() == defaultAreaValue) {
             $(this).val("");
-            $(".text-num span").text(140);
+            $(".text-num span").text(max_len);
         }
     });
     $("textarea").blur(function () {
         if ($(this).val() == 0) {
             $(this).val(defaultAreaValue);
-            $(".text-num span").text(140);
+            $(".text-num span").text(max_len);
         }
     });
-    var max_len = 140;
-    $("textarea").keydown(function () {
+
+    $("textarea").keyup(function () {
         var textarea = $("#text_val");
         var text = $("#text_val").val();
         var text_len = text.length;
-        if (text_len >= max_len) {
-            text = text.substr(0, max_len - 1);
+        if (text_len > max_len) {
+            text = text.substr(0, max_len);
             text_len = max_len;
         }
         textarea.val(text);
-        $(".text-num span").text(140 - text_len);
+        $(".text-num span").text(max_len - text_len);
     });
+
     //发布评论；
     $("#submit").on("click", function () {
 
@@ -48,7 +49,7 @@ $(function () {
             var new_text = text_val;
             var reqData = {
                 content: new_text,
-                articleId: 11,
+                articleId: articleId,
                 userId: userId
             };
 
@@ -70,7 +71,7 @@ $(function () {
                             html += '<div class="text">' + data.data.content + '</div>';
                             html += '</li>';
                             $(".comment-list ul").prepend(html);
-                            $("#text_val").text("");
+                            $("#text_val").val("");
                             //config the total
                             var commentTotalCount=$("#comment_total_count");
                             var totalText = commentTotalCount.text();
@@ -80,6 +81,8 @@ $(function () {
                             }
                             tip.text('发表成功！');
                             tip.show();
+
+                            window.parent.iFrameHeight();
                         } else if (data.code == 10100) {
                             //too frequent
                             tip.text('刚刚评论过，休息一下再来吧');
@@ -106,6 +109,7 @@ $(function () {
             });
         }
     });
+
     //删除评论；
     $(".delete").on("click", function () {
         $(this).parent().remove();
@@ -290,4 +294,10 @@ $(function () {
 
     var toInsert = $('.tcdPageCode');
     toInsert.append(html);
+
+    // $('.tcdPageCode a').click(function(){
+    //
+    //     window.parent.iFrameHeight();
+    // });
+
 });
