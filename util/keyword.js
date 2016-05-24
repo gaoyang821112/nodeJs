@@ -20,14 +20,16 @@ var mongodb = require('../util/mongodb');
 
 /**load  keyword from mongodb*/
 exports.loadKeywordFromMongo = function () {
+    var nWords=new Array();
     mongodb.sensitive_collection.find(function(err,docs){
         var len=docs.length;
         for(var i=0;i<len;i++){
             var key=docs[i].name.trim();
             if(key.length>0){
-                words.push(key);
+                nWords.push(key);
             }
         }
+        words=nWords;
     });
 };
 

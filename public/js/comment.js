@@ -9,6 +9,8 @@ $(function () {
             if (url) {
                 if ('#iframepage'==url.substr(url.length - 11, 11)) {
                     parent.window.location = url;
+                }else if('#'==url.substr(url.length - 1, 1)){
+                    parent.window.location = url + 'iframepage';
                 } else {
                     parent.window.location = url + '#iframepage';
                 }
