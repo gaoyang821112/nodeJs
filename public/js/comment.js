@@ -7,7 +7,7 @@ $(function () {
         if (parent) {
             var url = parent.window.location.href;
             if (url) {
-                if (url.substr(url.length - 11, 11)) {
+                if ('#iframepage'==url.substr(url.length - 11, 11)) {
                     parent.window.location = url;
                 } else {
                     parent.window.location = url + '#iframepage';
@@ -100,6 +100,7 @@ $(function () {
                             if (!isNaN(total)) {
                                 commentTotalCount.text(total + 1);
                             }
+                            $(".text-num span").text(max_len);
                             tip.text('发表成功！');
                             tip.show();
 

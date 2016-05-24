@@ -59,7 +59,11 @@ function findCommentByArticleIdPagesForPage(req, res) {
                             var nn = rep[i].substr(0, 3) + "****" + rep[i].substr(7, 4);
                             docs[i].nick = nn;
                         } else {
-                            docs[i].nick = rep[i];
+                            if(err){
+                                docs[i].nick = "游客";
+                            }else{
+                                docs[i].nick = rep[i];
+                            }
                         }
                     } else {
                         docs[i].nick = "游客";
@@ -206,7 +210,7 @@ exports.saveComment = function (req, res) {
             }
 
             //determine if comment is too frequent
-            var userFrequent = constants.commentfrequent_prefix + userId;
+            var userFrequent = constants.commentfrequent_prefix + articleId+"_userId_"+userId;
             redis_util.getClient.get(userFrequent, function (err, rep) {
                 if (rep) {//comment is too frequent
                     res.send(new ResponseVo(10100));
@@ -229,7 +233,12 @@ exports.saveComment = function (req, res) {
                             var nn = rep.substr(0, 3) + "****" + rep.substr(7, 4);
                             comment.nick = nn;
                         } else {
-                            comment.nick = rep;
+                            if(err){
+                                comment.nick = "游客";
+                            }else {
+                                comment.nick = rep;
+                            }
+
                         }
                     } else {
                         comment.nick = "游客";
