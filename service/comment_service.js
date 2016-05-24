@@ -176,6 +176,13 @@ function findCommentByArticleIdPagesFromTime(req, res) {
     });
 
 };
+
+function excludeXss(content){
+    content=content.replace(new RegExp("<","gm"),"");
+    content=content.replace(new RegExp(">","gm"),"");
+    content=content.replace(new RegExp("/","gm"),"");
+    return content;
+}
 exports.findCommentByArticleIdPagesFromTime = findCommentByArticleIdPagesFromTime;
 /**
  * save comment.Firstly,It will determine the ban user .Secondary replace sensitive word to *
@@ -186,6 +193,9 @@ exports.saveComment = function (req, res) {
     var articleId = Number(req.body.articleId);
     var userId = Number(req.body.userId);
     var content = req.body.content;
+
+    content=excludeXss(content);
+
     if (!isNaN(userId) && !isNaN(articleId) && userId > 0 && articleId > 0 && content && content.length > constants.commentword_min) {
         mongodb.banUser_collection.find({uid_disable: userId}, function (err, docs) {
 

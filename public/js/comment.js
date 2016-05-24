@@ -2,17 +2,38 @@ $(function () {
 
     var defaultAreaValue = "我来说两句......";
     var max_len = 140;
+
+    $("#commentGoToSaveBtn").click(function () {
+        if (parent) {
+            var url = parent.window.location.href;
+            if (url) {
+                if (url.substr(url.length - 11, 11)) {
+                    parent.window.location = url;
+                } else {
+                    parent.window.location = url + '#iframepage';
+                }
+
+            }
+        }
+    });
+
     //输入框；
     $("textarea").focus(function () {
         if ($(this).val() == defaultAreaValue) {
             $(this).val("");
             $(".text-num span").text(max_len);
         }
+        $(this).css('color', '#323232');
+        // $(this).removeAttr('color');
     });
     $("textarea").blur(function () {
         if ($(this).val() == 0) {
             $(this).val(defaultAreaValue);
             $(".text-num span").text(max_len);
+            $(this).css('color', '#c5c5c5');
+        } else {
+            $(this).css('color', '#323232');
+            // $(this).removeAttr('color');
         }
     });
 
@@ -73,11 +94,11 @@ $(function () {
                             $(".comment-list ul").prepend(html);
                             $("#text_val").val("");
                             //config the total
-                            var commentTotalCount=$("#comment_total_count");
+                            var commentTotalCount = $("#comment_total_count");
                             var totalText = commentTotalCount.text();
-                            var total=Number(totalText);
-                            if(!isNaN(total)){
-                                commentTotalCount.text(total+1);
+                            var total = Number(totalText);
+                            if (!isNaN(total)) {
+                                commentTotalCount.text(total + 1);
                             }
                             tip.text('发表成功！');
                             tip.show();
@@ -115,12 +136,13 @@ $(function () {
         $(this).parent().remove();
     });
 
-    function isLogin(){
+    function isLogin() {
         var obj = new Object();
         var userId = $.cookie('userId');
-        if(userId != 'undefined' && (userId != '' && userId != null)){
+        if (userId != 'undefined' && (userId != '' && userId != null)) {
             obj.login = true;
-            obj.userName = decodeURI($.cookie('userName'));;
+            obj.userName = decodeURI($.cookie('userName'));
+            ;
             return obj;
         }
         obj.login = false;
@@ -134,6 +156,9 @@ $(function () {
 
         var span = between + 1;
         var maxPageNum = Math.ceil(total / pageSize);
+        if (maxPageNum == 0) {
+            maxPageNum = 1;
+        }
         if (pageNum < 1) {
             pageNum = 1;
         }
