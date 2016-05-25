@@ -24,6 +24,8 @@ var telReg = /^\d{11}$/;
  * @param res
  */
 function findCommentByArticleIdPagesForPage(req, res) {
+    logger.info("param findCommentByArticleIdPagesForPage " + req.params.articleId + " " + req.params.pageNum);
+
     var articleId = Number(req.params.articleId);
     var pageNum = Number(req.params.pageNum);
     var pageSize = 10;
@@ -122,6 +124,7 @@ exports.findCommentByArticleIdPagesForPage = findCommentByArticleIdPagesForPage;
  * @param res
  */
 function findCommentByArticleIdPages(req, res) {
+    logger.info("param findCommentByArticleIdPages " + req.params.articleId + " " + req.params.pageNum+" "+req.params.pageSize);
     var articleId = Number(req.params.articleId);
     var pageNum = Number(req.params.pageNum);
     var pageSize = Number(req.params.pageSize);
@@ -147,6 +150,7 @@ function findCommentByArticleIdPages(req, res) {
 exports.findCommentByArticleIdPages = findCommentByArticleIdPages;
 
 function findCommentByArticleIdPagesFromTime(req, res) {
+    logger.info("param findCommentByArticleIdPagesFromTime " + req.params.articleId + " " + req.params.pageNum+" "+req.params.pageSize+ " "+req.params.timestamp);
     var timestamp = Number(req.params.timestamp);
     var articleId = Number(req.params.articleId);
     var pageNum = Number(req.params.pageNum);
@@ -194,6 +198,9 @@ exports.findCommentByArticleIdPagesFromTime = findCommentByArticleIdPagesFromTim
  * @param res
  */
 exports.saveComment = function (req, res) {
+
+    logger.info("param saveComment " + req.body.articleId + " " + req.body.userId+" "+req.body.content);
+
     var articleId = Number(req.body.articleId);
     var userId = Number(req.body.userId);
     var content = req.body.content;
