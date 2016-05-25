@@ -13,6 +13,10 @@ var cluster = require('cluster');
 var keyword = require('../util/keyword');
 keyword.loadKeywordFromMongo();
 
+var loadBetweenSeconds=60;
+
+setInterval(function(){keyword.loadKeywordFromMongo();},loadBetweenSeconds*1000);
+
 if (cluster.isMaster) {
   console.log("cluster start...");
 
