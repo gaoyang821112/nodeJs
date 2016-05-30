@@ -14,7 +14,7 @@ function lottery(req, res) {
     //hash结构 1：可以抽奖，0：不可以抽奖或者已经抽过奖
     redis.getClient.hget(constants.keyLotteryUser + userid, constants.canLottery, function (err, rep) {
         if (!err) {
-            //TO DO 方便测试总是可以抽取
+            //TOD O 方便测试总是可以抽取
             // rep="1";
             if ("1" == rep) {
                 //抽奖方案第几套

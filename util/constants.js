@@ -41,4 +41,4 @@ exports.userLotteryId="lotteryId";
 //奖品策略，第几套
 exports.lotteryPlan="lotteryPlan";
 //中奖率
-exports.prizeRate=0.5;
+exports.prizeRate=1;
