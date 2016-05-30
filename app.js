@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/nodejs/', routes);
 app.use('/nodejs/comment', comment);
 app.use('/nodejs/page', page);
-app.use('/prize', prize);
+app.use('/nodejs/prize', prize);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
