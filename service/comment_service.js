@@ -97,16 +97,16 @@ function convertTime(now, l) {
         return Math.floor(day) + "天前";
     } else {
         var da = new Date(l);
-        var re = da.getFullYear() + ":";
+        var re = da.getFullYear() + "-";
         var lmon = da.getMonth() + 1;
         if (lmon < 10) {
-            re = re + "0" + lmon + ":";
+            re = re + "0" + lmon + "-";
         } else {
-            re = re + lmon + ":";
+            re = re + lmon + "-";
         }
         var lday = da.getDate();
         if (lday < 10) {
-            re = re + "0" + lday + ":";
+            re = re + "0" + lday;
         } else {
             re = re + lday;
         }
