@@ -142,6 +142,14 @@ function findCommentByArticleIdPages(req, res) {
     if (isNaN(pageNum) || pageNum <= 0) {
         pageNum = 1;
     }
+
+    if(isNaN(articleId)){
+        var docs=new Array();
+        var comment = new CommentVo(docs, pageNum, pageSize, 0);
+        var resVo = new ResponseVo(200, comment);
+        res.render("page", resVo);
+    }
+
     /** validate the params */
     var start = (pageNum - 1) * pageSize;
     mongodb.comment_collection.find({article_id: articleId}, {
@@ -172,6 +180,14 @@ function findCommentByArticleIdPagesFromTime(req, res) {
     if (isNaN(pageNum) || pageNum <= 0) {
         pageNum = 1;
     }
+
+    if(isNaN(articleId)){
+        var docs=new Array();
+        var comment = new CommentVo(docs, pageNum, pageSize, 0);
+        var resVo = new ResponseVo(200, comment);
+        res.render("page", resVo);
+    }
+
     /** validate the params */
     if (0 == timestamp) {
         findCommentByArticleIdPages(req, res);
