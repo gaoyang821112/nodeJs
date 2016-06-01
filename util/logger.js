@@ -17,7 +17,11 @@ log4js.configure({
             category: 'logger'
         }
     ],
-    replaceConsole: true
+    replaceConsole: true,
+    levels:{
+        dateFile: 'info',
+        console: 'debug'
+    }
 });
 
 module.exports = log4js.getLogger('logger');

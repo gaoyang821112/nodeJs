@@ -18,18 +18,23 @@ function genPrize(arr) {
             var all = 0;
             var len = arr.length;
             for (var i = 0; i < len; i++) {
-                var chce=Number(arr[i]);
-                if(!isNaN(chce)) {
+                var chce = Number(arr[i]);
+                if (!isNaN(chce)) {
                     all += chce;
                 }
             }
-            var di=radio%all;
+            if(all>0) {
+                var di = radio % all;
 
-            for(var i=0;i<len;i++){
-                if(di<arr[i]){
-                    return i;
-                }else{
-                    di=di-arr[i];
+                for (var i = 0; i < len; i++) {
+                    var chce = Number(arr[i]);
+                    if (!isNaN(chce)) {
+                        if (di < chce) {
+                            return i;
+                        } else {
+                            di = di - chce;
+                        }
+                    }
                 }
             }
         }
@@ -38,4 +43,4 @@ function genPrize(arr) {
     //未抽中
     return -1;
 }
-exports.getLotteryIndex=genPrize;
+exports.getLotteryIndex = genPrize;
