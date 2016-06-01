@@ -23,6 +23,7 @@ var telReg = /^\d{11}$/;
  * @param res
  */
 function findCommentByArticleIdPagesForPage(req, res) {
+    console.log(redis_util.getClient);
     logger.info("param findCommentByArticleIdPagesForPage " + req.params.articleId + " " + req.params.pageNum);
 
     var articleId = Number(req.params.articleId);
@@ -31,6 +32,14 @@ function findCommentByArticleIdPagesForPage(req, res) {
 
     if (isNaN(pageNum) || pageNum <= 0) {
         pageNum = 1;
+    }
+
+    if(isNaN(articleId)){
+        var docs=new Array();
+        var comment = new CommentVo(docs, pageNum, pageSize, 0);
+        var resVo = new ResponseVo(200, comment);
+        resVo.articleId = 0;
+        res.render("page", resVo);
     }
     /** validate the params */
     var start = (pageNum - 1) * pageSize;
