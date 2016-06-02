@@ -1,4 +1,5 @@
 var constants = require('../util/constants');
+var logger = require('../util/logger');
 
 /**
  * 抽奖规则。首先根据中奖概率算出最大随机生成值（根据1万亿来计算，所以概率不能小于一万亿分之一）。
