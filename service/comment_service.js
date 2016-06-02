@@ -40,6 +40,7 @@ function findCommentByArticleIdPagesForPage(req, res) {
         var resVo = new ResponseVo(200, comment);
         resVo.articleId = 0;
         res.render("page", resVo);
+        return;
     }
     /** validate the params */
     var start = (pageNum - 1) * pageSize;
@@ -155,6 +156,7 @@ function findCommentByArticleIdPages(req, res) {
         var comment = new CommentVo(docs, pageNum, pageSize, 0);
         var resVo = new ResponseVo(200, comment);
         res.render("page", resVo);
+        return;
     }
 
     /** validate the params */
@@ -193,6 +195,7 @@ function findCommentByArticleIdPagesFromTime(req, res) {
         var comment = new CommentVo(docs, pageNum, pageSize, 0);
         var resVo = new ResponseVo(200, comment);
         res.render("page", resVo);
+        return;
     }
 
     /** validate the params */
