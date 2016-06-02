@@ -23,7 +23,7 @@ var telReg = /^\d{11}$/;
  * @param res
  */
 function findCommentByArticleIdPagesForPage(req, res) {
-    console.log(redis_util.getClient);
+    // console.log(redis_util.getClient);
     logger.info("param findCommentByArticleIdPagesForPage " + req.params.articleId + " " + req.params.pageNum);
 
     var articleId = Number(req.params.articleId);
@@ -63,22 +63,29 @@ function findCommentByArticleIdPagesForPage(req, res) {
             }
 
             redis_util.getClient.batch(command).exec(function (err, rep) {
-                for (var i = 0; i < docs.length; i++) {
-                    if (rep[i]) {
-                        if (telReg.test(rep[i])) {
-                            var nn = rep[i].substr(0, 3) + "****" + rep[i].substr(7, 4);
-                            docs[i].nick = nn;
-                        } else {
-                            if (err) {
-                                docs[i].nick = "游客";
-                            } else {
-                                docs[i].nick = rep[i];
-                            }
-                        }
-                    } else {
+                if(err){
+                    for (var i = 0; i < docs.length; i++) {
                         docs[i].nick = "游客";
+                        docs[i].uid_comment = '';
                     }
-                    docs[i].uid_comment = '';
+                }else {
+                    for (var i = 0; i < docs.length; i++) {
+                        if (rep[i]) {
+                            if (telReg.test(rep[i])) {
+                                var nn = rep[i].substr(0, 3) + "****" + rep[i].substr(7, 4);
+                                docs[i].nick = nn;
+                            } else {
+                                if (err) {
+                                    docs[i].nick = "游客";
+                                } else {
+                                    docs[i].nick = rep[i];
+                                }
+                            }
+                        } else {
+                            docs[i].nick = "游客";
+                        }
+                        docs[i].uid_comment = '';
+                    }
                 }
                 res.render("page", resVo);
             });
