@@ -23,6 +23,9 @@ redispool.acquire(function(err, client) {
         // factory.create function
     }
     else {
-       exports.getClient = client;
+        console.log(redispool);
+        exports.getClient = client;
     }
 });
+
+exports.redisPool = redispool;
