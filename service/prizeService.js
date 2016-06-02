@@ -38,7 +38,7 @@ function lottery(req, res) {
                                 //如果抽中，且抽中的奖品还没有被抽完则继续进行处理
                                 if (index > -1 ) {
                                    var num= Number(docs[index].lottory_number);
-                                    if(!isNaN(num) && num>1) {
+                                    if(!isNaN(num) && num>=1) {
                                         lotteryId = docs[index].lottory_seq;
                                         lotteryName = docs[index].lottory_name;
                                         remark=docs[index].lottory_remark;

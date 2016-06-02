@@ -46,6 +46,7 @@ function findCommentByArticleIdPagesForPage(req, res) {
     var start = (pageNum - 1) * pageSize;
     mongodb.comment_collection.find({article_id: articleId}, {
         id: 0,
+        uid_comment:0,
         rawContent: 0
     }).sort({create_time: -1}).skip(start).limit(pageSize, function (err, docs) {
         mongodb.comment_collection.count({article_id: articleId}, function (err, count) {
@@ -53,43 +54,20 @@ function findCommentByArticleIdPagesForPage(req, res) {
             var resVo = new ResponseVo(200, comment);
             resVo.articleId = articleId;
 
-            var command = new Array();
+            var ny="游客";
+
             for (var i = 0; i < docs.length; i++) {
 
-                var now = new Date().getTime();
-                var nt = convertTime(now, docs[i].create_time);
-                docs[i].create_time = nt;
-
-                command.push(["hget", "MemberBaseInfo:" + docs[i].uid_comment, 'nickname']);
+                    var now = new Date().getTime();
+                    var nt = convertTime(now, docs[i].create_time);
+                    docs[i].create_time = nt;
+                    // docs[i].nick = ny;
+                    // docs[i].uid_comment = '';
+                    if(!docs[i].nick){
+                        docs[i].nick = ny;
+                    }
             }
-
-            redis_util.getClient.batch(command).exec(function (err, rep) {
-                if(err){
-                    for (var i = 0; i < docs.length; i++) {
-                        docs[i].nick = "游客";
-                        docs[i].uid_comment = '';
-                    }
-                }else {
-                    for (var i = 0; i < docs.length; i++) {
-                        if (rep[i]) {
-                            if (telReg.test(rep[i])) {
-                                var nn = rep[i].substr(0, 3) + "****" + rep[i].substr(7, 4);
-                                docs[i].nick = nn;
-                            } else {
-                                if (err) {
-                                    docs[i].nick = "游客";
-                                } else {
-                                    docs[i].nick = rep[i];
-                                }
-                            }
-                        } else {
-                            docs[i].nick = "游客";
-                        }
-                        docs[i].uid_comment = '';
-                    }
-                }
-                res.render("page", resVo);
-            });
+            res.render("page", resVo);
         });
     });
 };
@@ -163,6 +141,7 @@ function findCommentByArticleIdPages(req, res) {
     var start = (pageNum - 1) * pageSize;
     mongodb.comment_collection.find({article_id: articleId}, {
         id: 0,
+        nick:0,
         rawContent: 0
     }).sort({create_time: -1}).skip(start).limit(pageSize, function (err, docs) {
         mongodb.comment_collection.count({article_id: articleId}, function (err, count) {
@@ -205,6 +184,7 @@ function findCommentByArticleIdPagesFromTime(req, res) {
     }
     mongodb.comment_collection.find({article_id: articleId, create_time: {$lt: timestamp}}, {
         id: 0,
+        nick:0,
         rawContent: 0
     }).sort({create_time: -1}).limit(pageSize, function (err, docs) {
         mongodb.comment_collection.count({
@@ -249,6 +229,7 @@ exports.saveComment = function (req, res) {
                 res.send(new ResponseVo(10000));
                 return;
             }
+            var ny="游客";
 
             //determine if comment is too frequent
             var userFrequent = constants.commentfrequent_prefix + articleId + "_userId_" + userId;
@@ -257,37 +238,32 @@ exports.saveComment = function (req, res) {
                     res.send(new ResponseVo(10100));
                     return;
                 }
-
-                var raw = content;
-                //filter sensitive word from content
-                content = keyword.filterKeywordWithStar(content);
-                var comment = new Comment(articleId, userId, content, raw, '1');
-                mongodb.comment_collection.save(comment);
-                redis_util.getClient.set(userFrequent, 1);
-                redis_util.getClient.expire(userFrequent, constants.commentfrequent_expire);
-                logger.info('save comment 为' + comment.articleId + ' 成功');
-                comment.rawContent = '';
-
                 redis_util.getClient.hget("MemberBaseInfo:" + userId, 'nickname', function (err, rep) {
-                    if (rep) {
+
+                    var raw = content;
+                    //filter sensitive word from content
+                    content = keyword.filterKeywordWithStar(content);
+                    var comment = new Comment(articleId, userId, content, raw, '1');
+                    comment.nick=ny;
+
+                    if(!err && rep){
                         if (telReg.test(rep)) {
                             var nn = rep.substr(0, 3) + "****" + rep.substr(7, 4);
                             comment.nick = nn;
                         } else {
-                            if (err) {
-                                comment.nick = "游客";
-                            } else {
-                                comment.nick = rep;
-                            }
-
+                            comment.nick = rep;
                         }
-                    } else {
-                        comment.nick = "游客";
                     }
+
+                    mongodb.comment_collection.save(comment);
+                    redis_util.getClient.set(userFrequent, 1);
+                    redis_util.getClient.expire(userFrequent, constants.commentfrequent_expire);
+                    logger.info('save comment 为' + comment.articleId + ' 成功');
+
                     comment.uid_comment = '';
+                    comment.rawContent = '';
                     res.send(new ResponseVo(200, comment));
                 });
-
             });
         });
     } else {
