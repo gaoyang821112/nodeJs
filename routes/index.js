@@ -10,7 +10,8 @@ router.get('/', function(req, res, next) {
 
 /* GET home page. */
 router.get('/ymtest/run', function(req, res, next) {
-  indexService.runComment();
+  // indexService.runComment();
+  res.render('index', { title: 'Express' });
 });
 
 module.exports = router;
