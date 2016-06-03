@@ -66,6 +66,10 @@ function findCommentByArticleIdPagesForPage(req, res) {
                     if(!docs[i].nick){
                         docs[i].nick = ny;
                     }
+                    if (telReg.test(docs[i].nick)) {
+                        var nn = docs[i].nick.substr(0, 3) + "****" + docs[i].nick.substr(7, 4);
+                        docs[i].nick = nn;
+                    }
             }
             res.render("page", resVo);
         });
