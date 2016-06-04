@@ -15,7 +15,7 @@ function lottery(req, res) {
     redis.getClient.hget(constants.keyLotteryUser + userid, constants.canLottery, function (err, rep) {
         if (!err) {
             //TODO 方便测试总是可以抽取
-             rep="1";
+            // rep="1";
             if ("1" == rep) {
                 //抽奖方案第几套
                 redis.getClient.get(constants.lotteryPlan, function (err, rep1) {
