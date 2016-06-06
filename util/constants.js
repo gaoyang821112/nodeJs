@@ -1,12 +1,24 @@
-//----------------------测试环境mongodb-----------------------------
-// exports.db_connection = 'mongodb://192.168.7.249:27017/comment';
+//mongodb 配置信息
+//测试环境
+// var mongodbIP="192.168.7.249:27017";
+//线上环境
+var mongodbIP="192.168.9.55:27017";
 
-//----------------------线上环境mongodb-----------------------------
-exports.db_connection = 'mongodb://192.168.9.55:27017/comment';
+//评论信息
+exports.db_connection = 'mongodb://'+mongodbIP+'/comment';
 exports.comment_collection = 'comment_article';
 exports.banUser_collection = 'comment_disable_user';
 exports.sensitive_collection = 'comment_sensitive_word';
 exports.sensitive_path='';
+
+
+//抽奖相关信息
+exports.prize_db_connection = 'mongodb://'+mongodbIP+'/lottory';
+exports.mongoLotteryInfo = 'lottory_info';
+exports.mongoUserLotteryRecord = 'lottory_record';
+
+
+//redis 配置信息
 
 //----------------------测试环境reids-----------------------------
 // exports.redis_connection_ip = '192.168.7.249';
@@ -23,13 +35,6 @@ exports.commentfrequent_expire=10;
 
 exports.commentword_min=0;
 
-//抽奖相关信息
-//----------------------测试环境mongodb-----------------------------
-// exports.prize_db_connection = 'mongodb://192.168.7.249:27017/lottory';
-//----------------------线上环境mongodb-----------------------------
-exports.prize_db_connection = 'mongodb://192.168.9.55:27017/lottory';
-exports.mongoLotteryInfo = 'lottory_info';
-exports.mongoUserLotteryRecord = 'lottory_record';
 //用户是否可以抽奖的key
 exports.keyLotteryUser="keyLotteryUser:";
 //是否可以抽奖的field
