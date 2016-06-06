@@ -25,9 +25,9 @@ exports.commentword_min=0;
 
 //抽奖相关信息
 //----------------------测试环境mongodb-----------------------------
-exports.prize_db_connection = 'mongodb://192.168.7.249:27017/lottory';
-//----------------------线上环境mongodb-----------------------------
 // exports.prize_db_connection = 'mongodb://192.168.7.249:27017/lottory';
+//----------------------线上环境mongodb-----------------------------
+exports.prize_db_connection = 'mongodb://192.168.9.55:27017/lottory';
 exports.mongoLotteryInfo = 'lottory_info';
 exports.mongoUserLotteryRecord = 'lottory_record';
 //用户是否可以抽奖的key
