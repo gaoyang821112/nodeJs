@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var comment = require('./routes/comment_route');
+var liveComment=require('./routes/live_comment_route');
 var page = require('./routes/page_route');
 var prize = require('./routes/prize-router');
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/nodejs/', routes);
 app.use('/nodejs/comment', comment);
+app.use('/nodejs/liveComment',liveComment);
 app.use('/nodejs/page', page);
 app.use('/nodejs/prize', prize);
 
