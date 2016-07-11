@@ -115,8 +115,8 @@ exports.saveComment = function (req, res,cb) {
                     redis_util.getClient.expire(userFrequent, constants.commentfrequent_expire);
                     logger.info('save comment 为' + comment.articleId + ' 成功');
 
-                    comment.uid_comment = '';
-                    comment.rawContent = '';
+                    // comment.uid_comment = '';
+                    // comment.rawContent = '';
                     cb(res,new ResponseVo(200, comment));
                 });
             });
