@@ -107,7 +107,7 @@ exports.saveComment = function (req, res,cb) {
                         } else {
                             comment.nick = rep;
                         }
-                    }
+                    } 
 
                     // mongodb.dbLiveComment.collection(constants.collectionPrefix+articleId).save(comment);
                     mongodb.liveCollection(articleId).save(comment);
