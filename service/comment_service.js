@@ -220,12 +220,12 @@ exports.saveComment = function (req, res) {
     logger.info("param saveComment " + req.body.articleId + " " + req.body.userId+" "+req.body.content);
 
     var articleId = Number(req.body.articleId);
-    var userId = Number(req.body.userId);
+    var userId = req.body.userId;
     var content = req.body.content;
 
     content = excludeXss(content);
 
-    if (!isNaN(userId) && !isNaN(articleId) && userId > 0 && articleId > 0 && content && content.length > constants.commentword_min) {
+    if ( userId && !isNaN(articleId) && articleId > 0 && content && content.length > constants.commentword_min) {
         mongodb.banUser_collection.find({uid_disable: userId}, function (err, docs) {
 
             if (docs.length != 0) { //determine if the user is banned
