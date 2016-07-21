@@ -16,7 +16,7 @@ var telReg = /^\d{11}$/;
 
 
 function findCommentByArticleId(req, res,cb) {
-    logger.info("param findCommentByArticleId " + req.params.articleId + " " + req.params.pageNum+" "+req.params.pageSize);
+    logger.info("param live findCommentByArticleId " + req.params.articleId + " " + req.params.pageNum+" "+req.params.pageSize);
     var articleId = Number(req.params.articleId);
     var pageNum = Number(req.params.pageNum);
     var pageSize = Number(req.params.pageSize);
@@ -67,7 +67,7 @@ function excludeXss(content) {
  */
 exports.saveComment = function (req, res,cb) {
 
-    logger.info("param saveComment " + req.body.articleId + " " + req.body.userId+" "+req.body.content);
+    logger.info("param live saveComment " + req.body.articleId + " " + req.body.userId+" "+req.body.content);
 
     var articleId = Number(req.body.articleId);
     var userId = Number(req.body.userId);
@@ -79,7 +79,7 @@ exports.saveComment = function (req, res,cb) {
         mongodb.banUser_collection.find({uid_disable: userId}, function (err, docs) {
 
             if (docs.length != 0) { //determine if the user is banned
-                logger.info("ban user save comment with userId:" + userId + ",articleid:" + articleId);
+                logger.info("ban user save live comment with userId:" + userId + ",articleid:" + articleId);
                 cb(res,new ResponseVo(10000));
                 return;
             }
@@ -113,7 +113,7 @@ exports.saveComment = function (req, res,cb) {
                     mongodb.liveCollection(articleId).save(comment);
                     redis_util.getClient.set(userFrequent, 1);
                     redis_util.getClient.expire(userFrequent, constants.commentfrequent_expire);
-                    logger.info('save comment 为' + comment.articleId + ' 成功');
+                    logger.info('save live comment 为' + comment.articleId + ' 成功');
 
                     // comment.uid_comment = '';
                     // comment.rawContent = '';
@@ -122,7 +122,7 @@ exports.saveComment = function (req, res,cb) {
             });
         });
     } else {
-        logger.info("param err save comment with userId:" + userId + ",articleid:" + articleId);
+        logger.info("param err save live comment with userId:" + userId + ",articleid:" + articleId);
         cb(res,new ResponseVo(10010));
     }
 
