@@ -35,7 +35,8 @@ app.use('/nodejs/prize', prize);
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
-  next(err);
+  // next(err);
+  res.send('<html><title>404</title><body><center><h1>404</h1></center></body></html>');
 });
 
 // error handlers
@@ -56,10 +57,11 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+  // res.render('error', {
+  //   message: err.message,
+  //   error: {}
+  // });
+  res.send('<html><title>500</title><body><center><h1>500</h1></center></body></html>');
 });
 
 
