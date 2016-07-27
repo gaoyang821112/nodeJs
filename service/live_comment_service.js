@@ -92,7 +92,7 @@ exports.saveComment = function (req, res,cb) {
                     cb(res,new ResponseVo(10100));
                     return;
                 }
-                redis_util.getClient.hget("MemberBaseInfo:" + userId, 'nickname', function (err, rep) {
+                redis_util.getClient.hget("MemberBaseInfo:" + userId, 'nickName', function (err, rep) {
 
                     var raw = content;
                     //filter sensitive word from content
