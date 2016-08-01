@@ -24,14 +24,14 @@ exports.mongoUserLotteryRecord = 'lottory_record';
 //redis 配置信息
 
 //----------------------测试环境reids-----------------------------
-exports.redis_connection_ip = '192.168.7.249';
-exports.redis_connection_port = '6379';
-exports.redis_connection_pwd = '888888';
+// exports.redis_connection_ip = '192.168.7.249';
+// exports.redis_connection_port = '6379';
+// exports.redis_connection_pwd = '888888';
 
 //----------------------线上环境reids-----------------------------
-// exports.redis_connection_ip = '192.168.9.20';
-// exports.redis_connection_port = '6378';
-// exports.redis_connection_pwd = '888888';
+exports.redis_connection_ip = '192.168.9.20';
+exports.redis_connection_port = '6378';
+exports.redis_connection_pwd = '888888';
 
 exports.commentfrequent_prefix='comment_frequent_';
 exports.commentfrequent_expire=10;
