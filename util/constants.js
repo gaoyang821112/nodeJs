@@ -3,7 +3,7 @@
 // var mongodbIP="192.168.7.249:27017";
 //线上环境
 var mongodbIP="192.168.9.55:27017";
-mongodbIP="192.168.7.249:27017";
+// mongodbIP="192.168.7.249:27017";
 
 //评论信息
 exports.db_connection = 'mongodb://'+mongodbIP+'/comment';
