@@ -145,7 +145,7 @@ function findCommentByArticleIdPages(req, res) {
     var start = (pageNum - 1) * pageSize;
     mongodb.comment_collection.find({article_id: articleId}, {
         id: 0,
-        nick:0,
+       // nick:0,
         rawContent: 0
     }).sort({create_time: -1}).skip(start).limit(pageSize, function (err, docs) {
         mongodb.comment_collection.count({article_id: articleId}, function (err, count) {
@@ -188,7 +188,7 @@ function findCommentByArticleIdPagesFromTime(req, res) {
     }
     mongodb.comment_collection.find({article_id: articleId, create_time: {$lt: timestamp}}, {
         id: 0,
-        nick:0,
+        //nick:0,
         rawContent: 0
     }).sort({create_time: -1}).limit(pageSize, function (err, docs) {
         mongodb.comment_collection.count({
