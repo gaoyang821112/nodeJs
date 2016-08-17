@@ -54,15 +54,15 @@ $(function () {
     //发布评论；
     $("#submit").on("click", function () {
 
-        var obj = isLogin();
-        if (!obj.login) {
-            // showLogin();
-            //alert(window.parent.document.getElementById('normal_login').innerHTML);
-            $('.tag i', parent.document).html('登录新英');
-            $('.login_el,#bg_div', parent.document).show();
-            $('#normal_login', parent.document).show();
-            return;
-        }
+        // var obj = isLogin();
+        // if (!obj.login) {
+        //     // showLogin();
+        //     //alert(window.parent.document.getElementById('normal_login').innerHTML);
+        //     $('.tag i', parent.document).html('登录新英');
+        //     $('.login_el,#bg_div', parent.document).show();
+        //     $('#normal_login', parent.document).show();
+        //     return;
+        // }
 
         var userId = $.cookie('userId');
 
@@ -72,8 +72,8 @@ $(function () {
             var new_text = text_val;
             var reqData = {
                 content: new_text,
-                articleId: articleId,
-                userId: userId
+                articleId: 110,
+                userId: 1
             };
 
             $.ajax({

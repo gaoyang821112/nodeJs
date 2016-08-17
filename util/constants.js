@@ -50,3 +50,11 @@ exports.userLotteryId="lotteryId";
 exports.lotteryPlan="lotteryPlan";
 //中奖率
 exports.prizeRate=1;
+
+//是否可以评论
+var default_openComment=1;
+var default_closeComment=0;
+
+// exports.openComment=default_openComment;
+// exports.closeComment=default_closeComment;
+exports.canComment=default_closeComment;

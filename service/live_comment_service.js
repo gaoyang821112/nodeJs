@@ -35,6 +35,15 @@ function findCommentByArticleId(req, res,cb) {
         return;
     }
 
+    //close comment
+    if(!constants.canComment){
+        var docs=new Array();
+        var comment = new CommentVo(docs, pageNum, pageSize, 0);
+        var resVo = new ResponseVo(200, comment);
+        cb(res,resVo);
+        return ;
+    }
+
     /** validate the params */
     var start = (pageNum - 1) * pageSize;
     mongodb.liveCollection(articleId).find({article_id: articleId}, {
@@ -72,6 +81,12 @@ exports.saveComment = function (req, res,cb) {
     var articleId = Number(req.body.articleId);
     var userId = req.body.userId;
     var content = req.body.content;
+
+    //close comment
+    if(!constants.canComment){
+        cb(res,new ResponseVo(15000));
+        return ;
+    }
 
     content = excludeXss(content);
 
