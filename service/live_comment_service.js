@@ -39,7 +39,7 @@ function findCommentByArticleId(req, res,cb) {
     if(!constants.canComment){
         var docs=new Array();
         var comment = new CommentVo(docs, pageNum, pageSize, 0);
-        var resVo = new ResponseVo(200, comment);
+        var resVo = new ResponseVo(201, comment);
         cb(res,resVo);
         return ;
     }

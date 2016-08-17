@@ -48,10 +48,11 @@ function findCommentByArticleIdPagesForPage(req, res) {
         var docs=new Array();
         var comment = new CommentVo(docs, pageNum, pageSize, 0);
         var resVo = new ResponseVo(200, comment);
-        cb(res,resVo);
+        resVo.articleId = articleId;
+        res.render("page", resVo);
         return ;
     }
-    
+
     /** validate the params */
     var start = (pageNum - 1) * pageSize;
     mongodb.comment_collection.find({article_id: articleId}, {
@@ -156,7 +157,9 @@ function findCommentByArticleIdPages(req, res) {
         var docs=new Array();
         var comment = new CommentVo(docs, pageNum, pageSize, 0);
         var resVo = new ResponseVo(200, comment);
-        cb(res,resVo);
+        // cb(res,resVo);
+        // res.render("page", resVo);
+        res.send(resVo);
         return ;
     }
 
@@ -205,7 +208,9 @@ function findCommentByArticleIdPagesFromTime(req, res) {
         var docs=new Array();
         var comment = new CommentVo(docs, pageNum, pageSize, 0);
         var resVo = new ResponseVo(200, comment);
-        cb(res,resVo);
+        // cb(res,resVo);
+        // res.render("page", resVo);
+        res.send(resVo);
         return ;
     }
 
@@ -253,7 +258,8 @@ exports.saveComment = function (req, res) {
 
     //close comment
     if(!constants.canComment){
-        cb(res,new ResponseVo(15000));
+        // cb(res,new ResponseVo(15000));
+        res.send(new ResponseVo(15000));
         return ;
     }
 
